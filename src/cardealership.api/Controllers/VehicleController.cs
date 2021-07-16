@@ -89,7 +89,7 @@ namespace CarDealership.Api.Controllers
 
         return NoContent();
       }
-      catch (System.Exception ex)
+      catch (System.Exception)
       {
         return BadRequest("An error has ocurred!");
       }
