@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Redirect } from "react-router-dom";
+import "./App.css";
+
+import CarList from "./Containers/CarList/CarList";
+import CarView from "./Containers/CarView/CarView";
+import Layout from "./Hoc/Layout/Layout";
+
+import * as actions from "./Store/Actions/App";
 
 function App() {
+  const dispatch = useDispatch();
+  const onStartup = useCallback(
+    () => dispatch(actions.FetchCars()),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    onStartup();
+  }, [onStartup]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Route path="/" exact component={CarList} />
+      <Route path="/view" exact component={CarView} />
+      <Redirect to="/" />
+    </Layout>
   );
 }
 
