@@ -15,7 +15,21 @@ const CarList: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const vehiclesTable = <Table vehicles={currentState.carList} />;
+  const vehicleSchema: Vehicle = {
+    id: "000",
+    orderNumber: 0,
+    chassis: "",
+    deliveryDate: new Date(),
+    license: "",
+    model: "",
+  };
+
+  const vehiclesTable = (
+    <Table
+      vehicles={currentState.carList}
+      headers={Object.keys(vehicleSchema)}
+    />
+  );
 
   return (
     <>
@@ -25,7 +39,7 @@ const CarList: React.FC = () => {
       {currentState.isLoading ? "Loading vehicles..." : vehiclesTable}
 
       <br />
-      <NavLink to="/view">View</NavLink>
+      <NavLink to="/view">Add Vehicle</NavLink>
     </>
   );
 };
